@@ -44,6 +44,10 @@ public class ConfirmFlutterFragment extends FlutterFragment {
         super.onAttach(context);
         channel = new MethodChannel(getFlutterEngine().getDartExecutor().getBinaryMessenger(), CHANNEL);
         channel.setMethodCallHandler(this::onMethodCall);
+        // エンジンは Application 起動時に事前ウォームアップされ、Dart の main()/確認①の初期表示は
+        // その時点で一度だけ走る（この確認画面がまだ存在しない時点）。そのため、確認対象のテキストは
+        // Dart 側からの起動時プルではなく、アタッチのたびにこちらからプッシュする。
+        channel.invokeMethod("setInitialText", requireArguments().getString(ARG_TEXT));
     }
 
     @Override
@@ -58,10 +62,6 @@ public class ConfirmFlutterFragment extends FlutterFragment {
 
     private void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         switch (call.method) {
-            case "getInitialText":
-                result.success(requireArguments().getString(ARG_TEXT));
-                break;
-
             case "submitTodo": {
                 String text = call.arguments();
                 new TodoRepository(requireContext()).submit(text, new Callback<Void>() {
@@ -92,7 +92,10 @@ public class ConfirmFlutterFragment extends FlutterFragment {
 
             case "exitToList":
                 if (isAdded()) {
-                    getParentFragmentManager().popBackStack();
+                    getParentFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.tab_content, new TodoListFragment())
+                            .commit();
                 }
                 result.success(null);
                 break;

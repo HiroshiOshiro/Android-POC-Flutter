@@ -6,8 +6,25 @@ const _channel = MethodChannel('com.example.androidpoc/confirm');
 const _teal = Color(0xFF0D7D87);
 const _white = Colors.white;
 
+final _navigatorKey = GlobalKey<NavigatorState>();
+
+// エンジンは Application 起動時に事前ウォームアップされ、main() はその1回しか実行されない
+// （FlutterFragment は毎回同じ実行中エンジン/Dart 状態にアタッチするだけ）。そのため確認①の
+// 表示内容は Dart 側からの起動時プルではなく、ネイティブ側が確認画面表示のたびに
+// setInitialText で能動的にプッシュする方式にしている。
+final ValueNotifier<String> _initialText = ValueNotifier<String>('');
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  _channel.setMethodCallHandler(_handleNativeCall);
   runApp(const ConfirmApp());
+}
+
+Future<void> _handleNativeCall(MethodCall call) async {
+  if (call.method == 'setInitialText') {
+    _initialText.value = call.arguments as String? ?? '';
+    _navigatorKey.currentState?.popUntil((route) => route.isFirst);
+  }
 }
 
 class ConfirmApp extends StatelessWidget {
@@ -16,8 +33,19 @@ class ConfirmApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: _teal),
+      theme: ThemeData(
+        primaryColor: _teal,
+        scaffoldBackgroundColor: _white,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: _teal,
+            foregroundColor: _white,
+          ),
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(color: _teal),
+      ),
       home: const Confirm1Screen(),
     );
   }
@@ -83,6 +111,7 @@ class _ConfirmScaffold extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _ConfirmToolbar(title: toolbarTitle, onBack: onBack),
             Expanded(
@@ -150,66 +179,31 @@ class _ConfirmScaffold extends StatelessWidget {
   }
 }
 
-class Confirm1Screen extends StatefulWidget {
+class Confirm1Screen extends StatelessWidget {
   const Confirm1Screen({super.key});
-
-  @override
-  State<Confirm1Screen> createState() => _Confirm1ScreenState();
-}
-
-class _Confirm1ScreenState extends State<Confirm1Screen> {
-  String? _text;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadInitialText();
-  }
-
-  Future<void> _loadInitialText() async {
-    String text;
-    try {
-      text = await _channel.invokeMethod<String>('getInitialText') ?? '';
-    } on PlatformException {
-      text = '';
-    } on MissingPluginException {
-      text = '';
-    }
-    if (!mounted) return;
-    setState(() => _text = text);
-  }
 
   void _exitToList() {
     _channel.invokeMethod('exitToList');
   }
 
-  void _goToConfirm2() {
+  void _goToConfirm2(BuildContext context, String text) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => Confirm2Screen(text: _text!)),
+      MaterialPageRoute(builder: (_) => Confirm2Screen(text: text)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_text == null) {
-      return const Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              _ConfirmToolbar(title: '確認①'),
-              Expanded(child: Center(child: CircularProgressIndicator())),
-            ],
-          ),
-        ),
-      );
-    }
-    return _ConfirmScaffold(
-      toolbarTitle: '確認①',
-      onBack: _exitToList,
-      caption: '入力内容を確認してください',
-      text: _text!,
-      actionLabel: '次へ',
-      onAction: _goToConfirm2,
+    return ValueListenableBuilder<String>(
+      valueListenable: _initialText,
+      builder: (context, text, _) => _ConfirmScaffold(
+        toolbarTitle: '確認①',
+        onBack: _exitToList,
+        caption: '入力内容を確認してください',
+        text: text,
+        actionLabel: '次へ',
+        onAction: () => _goToConfirm2(context, text),
+      ),
     );
   }
 }
