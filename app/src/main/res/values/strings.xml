@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android POC</string>
+
+    <string name="tab_todo">Todo</string>
+    <string name="tab_music">Music</string>
+    <string name="tab_login">Login</string>
+
+    <string name="common_hello">こんにちは</string>
+    <string name="common_ok">OK</string>
+    <string name="error_title">エラー</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- iOS 版（Packages/Design/Sources/Ui/Resources/Media.xcassets）の配色を移植 -->
+    <color name="palette_teal">#0D7D87</color>
+    <color name="palette_violet">#6B38CC</color>
+    <color name="palette_indigo">#4F45E6</color>
+
+    <color name="brand">@color/palette_indigo</color>
+    <color name="nav_bar">@color/palette_teal</color>
+    <color name="login_button">@color/palette_violet</color>
+
+    <color name="nav_bar_title">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+</resources>
