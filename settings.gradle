@@ -6,12 +6,22 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Flutter の add-to-app（ソースコード取り込み方式）が :flutter モジュール側で
+    // プロジェクトレベルの repositories を宣言するため、FAIL_ON_PROJECT_REPOS のままでは
+    // ビルドできない。PREFER_SETTINGS に緩めて、Flutter のエンジン成果物用リポジトリを
+    // ここに追加する。
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
+        maven { url "https://storage.googleapis.com/download.flutter.io" }
     }
 }
 
 rootProject.name = "Android-POC-Flutter"
 include ":app"
+
+// Todo の確認①②画面を Flutter（flutter_confirm/）で実装するための add-to-app 組み込み。
+// 別リポジトリでの AAR 配布ではなく、単一リポジトリで完結させるためソースコード直接取り込み方式を使う。
+setBinding(new Binding([gradle: this]))
+evaluate(new File(settingsDir, "flutter_confirm/.android/include_flutter.groovy"))

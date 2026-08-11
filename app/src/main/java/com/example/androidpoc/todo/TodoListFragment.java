@@ -118,7 +118,7 @@ public class TodoListFragment extends Fragment {
         }
         getParentFragmentManager()
                 .beginTransaction()
-                .replace(R.id.tab_content, Confirm1Fragment.newInstance(text))
+                .replace(R.id.tab_content, ConfirmFlutterFragment.newInstance(text))
                 .addToBackStack("confirm1")
                 .commit();
     }
