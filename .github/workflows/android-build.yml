@@ -1,7 +1,13 @@
 name: Android Build
 
-# ローカル（この Mac）で processDebugResources が原因不明のまま失敗するため、
-# クリーンな Linux 環境でも同じ現象が起きるかを切り分けるための CI。
+# push のたびにビルドを検証する CI。
+# 導入時、ローカル(Mac)で :app:processDebugResources が
+# 「attribute auto:X not found」で原因不明のまま失敗し続けた。この CI で
+# クリーンな Linux 環境でも同一環境（AGP/Gradle/SDK 各種の組み合わせ）で再現することを確認し、
+# 環境要因ではなくプロジェクト側の問題と判明。原因はレイアウト XML で
+# サードパーティ AAR のカスタム属性（app:）を使うと解決に失敗すること（Mac/Linux 双方、
+# AGP 8.13.2/9.3.1/8.4.0 等でも再現）で、app: 属性を一切使わない構成に変更して解決した
+# （詳細は各レイアウト/build.gradle のコメントを参照）。
 on:
   push:
     branches: [ main ]
