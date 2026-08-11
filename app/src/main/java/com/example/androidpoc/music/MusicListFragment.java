@@ -6,10 +6,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +53,7 @@ public class MusicListFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.music_toolbar);
         toolbar.setTitle(R.string.music_title);
+        toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white));
 
         searchField = view.findViewById(R.id.music_search_field);
         searchField.setText(DEFAULT_TERM);

@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         transaction.commitNow();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        // menu/bottom_nav_menu.xml は XML の app:menu ではなくここで読み込む
+        // （サードパーティ AAR のカスタム属性(app:)を使わない構成にするため）。
+        bottomNav.inflateMenu(R.menu.bottom_nav_menu);
 
         if (firstCreation) {
             hideAllExcept(todoTab);

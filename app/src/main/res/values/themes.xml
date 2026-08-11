@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- NoActionBar: 画面ごとに Toolbar を明示的に置く（iOS 版がシステムの UINavigationBar を隠し、
-         画面ごとにカスタムの上部バーを描画しているのに合わせる）。 -->
+         画面ごとにカスタムの上部バーを描画しているのに合わせる）。
+         minSdk 26（API21以上）なので、ライブラリ由来ではなくフレームワーク純正の
+         android:colorPrimary 等を使う（サードパーティ AAR のカスタム属性を使わない構成にするため）。 -->
     <style name="Theme.AndroidPoc" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/nav_bar</item>
-        <item name="colorPrimaryDark">@color/nav_bar</item>
-        <item name="colorAccent">@color/brand</item>
-        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:colorPrimary">@color/nav_bar</item>
+        <item name="android:colorPrimaryDark">@color/nav_bar</item>
+        <item name="android:colorAccent">@color/brand</item>
     </style>
 
     <!-- Todo一覧・確認1・確認2・完了・ログインで共通の、teal背景+白文字中央寄せタイトルの

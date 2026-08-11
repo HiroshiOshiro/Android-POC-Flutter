@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +52,7 @@ public class MusicDetailFragment extends Fragment {
         MusicTrack track = (MusicTrack) requireArguments().getSerializable(ARG_TRACK);
 
         Toolbar toolbar = view.findViewById(R.id.music_detail_toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(v -> getParentFragmentManager().popBackStack());
 
         ImageView artwork = view.findViewById(R.id.detail_artwork);

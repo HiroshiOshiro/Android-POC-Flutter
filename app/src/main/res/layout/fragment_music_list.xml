@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <!-- iOS 版で Music だけは通常のシステムナビゲーションバーを使っているのに合わせ、
-         他画面のカスタムバーではなく標準の Toolbar を使う。 -->
-    <androidx.appcompat.widget.Toolbar
+         他画面のカスタムバーではなく標準の Toolbar を使う。
+         android.widget.Toolbar（フレームワーク標準）を使い、タイトル色は Java 側で設定する
+         （サードパーティ AAR のカスタム属性(app:)を使わない構成にするため）。 -->
+    <Toolbar
         android:id="@+id/music_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/nav_bar"
-        app:titleTextColor="@color/white" />
+        android:layout_height="56dp"
+        android:background="@color/nav_bar" />
 
     <EditText
         android:id="@+id/music_search_field"
