@@ -9,4 +9,34 @@
     <string name="common_hello">こんにちは</string>
     <string name="common_ok">OK</string>
     <string name="error_title">エラー</string>
+
+    <!-- Login -->
+    <string name="login_title">ログイン</string>
+    <string name="login_email_hint">メールアドレス</string>
+    <string name="login_password_hint">パスワード</string>
+    <string name="login_button">ログイン</string>
+    <string name="login_terms_title">利用規約</string>
+    <string name="login_terms_body">・本アプリはデモ用です\n・データは端末内にのみ保存されます\n・仕様は予告なく変更される場合があります</string>
+    <string name="login_saved_title">保存済みの情報</string>
+    <string name="login_saved_email">メールアドレス（SharedPreferences）: %1$s</string>
+    <string name="login_saved_user_id">userID（EncryptedSharedPreferences）: %1$s</string>
+    <string name="login_error_validation">メールアドレスとパスワードを入力してください</string>
+    <string name="login_error_encryption">内部エラーが発生しました。しばらくして再度お試しください</string>
+    <string name="login_error_network">通信に失敗しました。接続状況をご確認ください</string>
+    <string name="login_error_persistence">ログイン情報の保存に失敗しました</string>
+    <string name="login_error_unknown">ログインに失敗しました</string>
+
+    <!-- Music -->
+    <string name="music_title">Music</string>
+    <string name="music_search_hint">曲名・アーティストで検索</string>
+    <string name="music_empty">結果がありません</string>
+    <string name="music_title_unknown">(タイトル不明)</string>
+    <string name="music_preview_play">▶ 30秒試聴</string>
+    <string name="music_preview_stop">■ 停止</string>
+    <string name="music_open_in_itunes">iTunes で開く</string>
+    <string name="music_error_offline">通信できません。通信環境を確認してください</string>
+    <string name="music_error_network">通信に失敗しました。接続状況をご確認ください</string>
+    <string name="music_error_server">サーバーでエラーが発生しました。時間をおいてお試しください</string>
+    <string name="music_error_decoding">データの読み取りに失敗しました</string>
+    <string name="music_error_unknown">読み込みに失敗しました</string>
 </resources>
