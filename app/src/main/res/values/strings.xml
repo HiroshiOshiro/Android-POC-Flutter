@@ -39,4 +39,20 @@
     <string name="music_error_server">サーバーでエラーが発生しました。時間をおいてお試しください</string>
     <string name="music_error_decoding">データの読み取りに失敗しました</string>
     <string name="music_error_unknown">読み込みに失敗しました</string>
+
+    <!-- Todo / Confirm / Completion -->
+    <string name="todo_header_title">タスクを管理しましょう</string>
+    <string name="todo_input_placeholder">Todo を入力</string>
+    <string name="todo_save">保存</string>
+    <string name="todo_input_empty_message">Todo を入力してください</string>
+    <string name="confirm1_title">確認①</string>
+    <string name="confirm2_title">確認②</string>
+    <string name="confirm_caption1">入力内容を確認してください</string>
+    <string name="confirm_caption2">この内容で保存します</string>
+    <string name="confirm1_next">次へ</string>
+    <string name="confirm2_save">保存</string>
+    <string name="confirm_error_submit_failed">保存に失敗しました</string>
+    <string name="completion_title">完了</string>
+    <string name="completion_message">完了しました</string>
+    <string name="completion_back">入力に戻る</string>
 </resources>
