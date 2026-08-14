@@ -45,13 +45,7 @@
     <string name="todo_input_placeholder">Todo を入力</string>
     <string name="todo_save">保存</string>
     <string name="todo_input_empty_message">Todo を入力してください</string>
-    <string name="confirm1_title">確認①</string>
-    <string name="confirm2_title">確認②</string>
-    <string name="confirm_caption1">入力内容を確認してください</string>
-    <string name="confirm_caption2">この内容で保存します</string>
-    <string name="confirm1_next">次へ</string>
-    <string name="confirm2_save">保存</string>
-    <string name="confirm_error_submit_failed">保存に失敗しました</string>
+    <!-- 確認①②相当の文言は flutter_confirm/lib/main.dart 側に直接記述している（Dart 側で完結するため）。 -->
     <string name="completion_title">完了</string>
     <string name="completion_message">完了しました</string>
     <string name="completion_back">入力に戻る</string>

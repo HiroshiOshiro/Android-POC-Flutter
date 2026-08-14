@@ -116,10 +116,13 @@ public class TodoListFragment extends Fragment {
             AlertHelper.showError(requireContext(), R.string.todo_input_empty_message);
             return;
         }
+        // addToBackStack は使わない。確認画面から完了画面への遷移は独立した
+        // （バックスタックに積まない）replace のため、混在させると完了画面表示中に
+        // このタブの一覧画面が二重に生き残る不具合になる。戻る操作は各画面から
+        // 明示的に replace(..., new TodoListFragment()) で行う。
         getParentFragmentManager()
                 .beginTransaction()
-                .replace(R.id.tab_content, Confirm1Fragment.newInstance(text))
-                .addToBackStack("confirm1")
+                .replace(R.id.tab_content, ConfirmFlutterFragment.newInstance(text))
                 .commit();
     }
 }
