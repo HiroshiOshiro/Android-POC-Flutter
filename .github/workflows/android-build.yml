@@ -35,11 +35,11 @@ jobs:
         with:
           channel: stable
 
-      # flutter_confirm/.android は .gitignore 対象（Flutter が自動生成するエフェメラルな
-      # ディレクトリのため）。settings.gradle がここを include_flutter.groovy で直接参照するので、
-      # ビルド前に `flutter pub get` で再生成する。
-      - name: flutter pub get (flutter_confirm)
-        run: flutter pub get
+      # Todo 確認①②画面（flutter_confirm/）は AAR 配布方式で組み込む。settings.gradle が
+      # flutter_confirm/build/host/outputs/repo をローカル Maven リポジトリとして参照するので、
+      # ビルド前に `flutter build aar` で生成する（gitignore 対象のエフェメラルな成果物のため）。
+      - name: flutter build aar (flutter_confirm)
+        run: flutter build aar
         working-directory: flutter_confirm
 
       - name: Grant execute permission for gradlew
