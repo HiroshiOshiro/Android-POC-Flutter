@@ -23,6 +23,11 @@ android {
         release {
             minifyEnabled false
         }
+        // flutter build aar が発行する flutter_profile 成果物を使うために必要
+        // （Flutter の add-to-app AAR 配布方式の要件）。
+        profile {
+            initWith debug
+        }
     }
 
     compileOptions {
@@ -41,6 +46,10 @@ dependencies {
     implementation "androidx.security:security-crypto:1.1.0"
     implementation "com.github.bumptech.glide:glide:4.16.0"
 
-    // Todo 確認①②画面（flutter_confirm/）の add-to-app 組み込み。
-    implementation project(":flutter")
+    // Todo 確認①②画面（flutter_confirm/）の add-to-app 組み込み（AAR 配布方式）。
+    // ローカル Maven リポジトリ（settings.gradle 参照）から解決される。flutter_debug/profile/release
+    // の POM が shared_preferences 等のネイティブプラグインを推移的依存として含む。
+    debugImplementation "com.example.flutter_confirm:flutter_debug:1.0"
+    profileImplementation "com.example.flutter_confirm:flutter_profile:1.0"
+    releaseImplementation "com.example.flutter_confirm:flutter_release:1.0"
 }
